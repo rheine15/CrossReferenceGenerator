@@ -7,6 +7,7 @@
 #include <string.h>
 
 #include "list.h"
+#include "queue.h"
 
 #define MAXLEN 32
 
@@ -31,12 +32,12 @@ void addLine(ListNode * node, int line) {
 
 /* Creates a new node with a string and line number */
 ListNode createNode(char * str, int line) {
-	listNode x;
-	x->lineNum[0] = line;
+	ListNode x;
+	x->lineNum = line;
 	strcpy(x->identifier, str);
 }
 
-ListNode getNode(List * list, char * identifier) {
+void * getNode(List * list, char * identifier) {
 	ListNode * temp = list->head;
 	while(temp != NULL) {
 		if(!strcmp(temp.identifier, identifier)) {
@@ -48,9 +49,9 @@ ListNode getNode(List * list, char * identifier) {
 
 /* Returns 1 if identifier found, 0 otherwise */
 int inList(List list, char * identifier) {
-	ListNode * temp = list->head;
+	ListNode temp = list->head;
 	while(temp != NULL) {
-		if(!strcmp(temp.identifier, identifier)) {
+		if(!strcmp(temp->identifier, identifier)) {
 			return 1;
 		} 
 		temp = temp.next;
@@ -71,7 +72,7 @@ int removeFromList(List * list, ListNode * node) {
 	}
 	ListNode prev = node->prev;
 	prev.next = node->next;
-	node->next.prev = prev;
+	node->next->prev = prev;
 	free(node);
 	list->size--;
 	return 1;
@@ -109,4 +110,5 @@ QueueNode convertToQueue(List * list) {
 			}
 		}
 	}
+	return queueHead;
 }

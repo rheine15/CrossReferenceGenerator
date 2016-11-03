@@ -12,7 +12,7 @@
 
 /* Initializes queue with an identifier and line number */
 QueueNode initQueue(char * identifier, int lineNum) {
-	QueueNode node;
+	QueueNode * node;
 	node->identifier = (char*)malloc(sizeof(char)*strlen(identifier));
 	strcpy(node->identifier, identifier);
 	node->lineNum = lineNum;
@@ -21,22 +21,22 @@ QueueNode initQueue(char * identifier, int lineNum) {
 
 /* Adds the given identifier and line num to the tail of the queue */
 void addQueueNode(QueueNode *head, char * identifier, int lineNum) {
-	QueueNode node;
+	QueueNode * node;
 	QueueNode * temp = head;
 	node->isHead = 0;
 	node->identifier = (char *)malloc(sizeof(char)*(strlen(identifier)));
 	strcpy(node->identifier, identifier);
 	node->lineNum = lineNum;
 	while(temp->next != NULL) {
-		*temp = temp->next;
+		temp = temp->next;
 	}
 	temp->next = node;
 }
 
 /* Prints the contents of the queue */
-void printQueue(QueueNode head) {
-	while(head != NULL) {
-		printf("%s: line %i\n", head.identifier, head.lineNum);
-		head = head.next;
+void printQueue(QueueNode * head) {
+	while(head->identifier != '\0') {
+		printf("%s: line %i\n", head->identifier, head->lineNum);
+		head = head->next;
 	}
 }

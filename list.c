@@ -3,7 +3,8 @@
  * CIS 361
  * Node of a list element
  ****************************/
-
+#include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "list.h"
@@ -18,7 +19,7 @@ void addNodeToList(List * list, ListNode * node) {
 		list->tail = node;
 		list->size = 1;
 	} else {
-		list->tail.next = node;
+		list->tail->next = node;
 		node->prev = list->tail;
 		list->tail = node;
 	}
@@ -33,14 +34,15 @@ void addLine(ListNode * node, int line) {
 /* Creates a new node with a string and line number */
 ListNode createNode(char * str, int line) {
 	ListNode x;
-	x->lineNum = line;
-	strcpy(x->identifier, str);
+	x.lineNum = line;
+	strcpy(x.identifier, str);
 }
 
+/* Returns the node with the given identifier */
 void * getNode(List * list, char * identifier) {
 	ListNode * temp = list->head;
 	while(temp != NULL) {
-		if(!strcmp(temp.identifier, identifier)) {
+		if(!strcmp(temp->identifier, identifier)) {
 			return temp;
 		}
 	}
@@ -48,13 +50,13 @@ void * getNode(List * list, char * identifier) {
 }
 
 /* Returns 1 if identifier found, 0 otherwise */
-int inList(List list, char * identifier) {
-	ListNode temp = list->head;
+int inList(List * list, char * identifier) {
+	ListNode * temp = list->head;
 	while(temp != NULL) {
 		if(!strcmp(temp->identifier, identifier)) {
 			return 1;
 		} 
-		temp = temp.next;
+		temp = temp->next;
 	}
 	return 0;
 }
@@ -70,45 +72,46 @@ int removeFromList(List * list, ListNode * node) {
 	if(list->head == node) {
 		list->head = node->next;
 	}
-	ListNode prev = node->prev;
-	prev.next = node->next;
-	node->next->prev = prev;
-	free(node);
+	ListNode * prev = node->prev;
+	ListNode * next = node->next;
+	prev->next = next;
+	next->prev = prev;
+	//free(node);
 	list->size--;
 	return 1;
 }
 
 /* Converts list to queue */
 QueueNode convertToQueue(List * list) {
-	int min = list->head.lineNum;
-	ListNode temp = list->head;
+	int min = list->head->lineNum;
+	ListNode *temp = list->head;
 	int error = 0;
-	QueueNode queueHead;
+	QueueNode * queueHead;
 	while(list->size > 0) {
 		while(temp != NULL) {
-			if (temp.lineNum < min) {
-				min = temp.lineNum;
+			if (temp->lineNum < min) {
+				min = temp->lineNum;
 			}
-			temp = temp.next;
+			temp = temp->next;
 		} 
 		temp = list->head;
-		while(temp.lineNum != min) {
+		while(temp->lineNum != min) {
 			if(temp == NULL) {
 				error = 1;
 				break;
 			}
-			temp = temp.next;
+			temp = temp->next;
 		}
 		if(error){
 			printf("Loop Error\n");
 			return;
 		} else {
-			if(queueHead == NULL) {
-				initQueue(temp.identifier, temp.lineNum);
+			if(queueHead->identifier == '\0') {
+				initQueue(temp->identifier, temp->lineNum);
 			} else {
-				addQueueNode(queueHead, temp.identifier, temp.lineNum);
+				addQueueNode(queueHead, temp->identifier, temp->lineNum);
 			}
 		}
 	}
-	return queueHead;
+	return *queueHead;
 }

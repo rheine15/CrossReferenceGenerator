@@ -1,8 +1,8 @@
 struct ListNodeType {
 	char * identifier;	// string stored in list
 	int lineNum;		// line string occurs on
-	ListNode * prev;	// previous element in list
-	ListNode * next;	// next element in list
+	struct ListNode * prev;	// previous element in list
+	struct ListNode * next;	// next element in list
 };
 
 typedef struct ListNodeType ListNode;
@@ -18,5 +18,7 @@ typedef struct ListType List;
 extern List addToList(List * list, ListNode * node);
 /* Adds a line number to existing node */
 extern void addLine(ListNode * node, int line);
+/* Returns the node with the given identifier */
+extern void * getNode(List * list, char * identifier);
 /* Creates a new node with a string and line number */
 extern ListNode createListNode(char * str, int line);

@@ -56,7 +56,7 @@ int main(int argc, char * argv[]) {
 			} else {
 				inId = 0;
 				// send tempId to list
-				if(!inList(list, tempId)) {
+				if(!inList(&list, tempId)) {
 					
 				}
 				tempId = "";

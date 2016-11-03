@@ -26,12 +26,7 @@ void addNodeToList(List * list, ListNode * node) {
 
 /* Adds a line number to existing node */
 void addLine(ListNode * node, int line) {
-	int * x;
-	x = node->lineNum;
-	while (x < &node->lineNum+1) {
-		x++;
-	}
-	*(node->lineNum+x) = line; 
+	node->lineNum = line; 
 }
 
 /* Creates a new node with a string and line number */
@@ -39,6 +34,28 @@ ListNode createNode(char * str, int line) {
 	listNode x;
 	x->lineNum[0] = line;
 	strcpy(x->identifier, str);
+}
+
+ListNode getNode(List * list, char * identifier) {
+	ListNode * temp = list->head;
+	while(temp != NULL) {
+		if(!strcmp(temp.identifier, identifier)) {
+			return temp;
+		}
+	}
+	return NULL;
+}
+
+/* Returns 1 if identifier found, 0 otherwise */
+int inList(List list, char * identifier) {
+	ListNode * temp = list->head;
+	while(temp != NULL) {
+		if(!strcmp(temp.identifier, identifier)) {
+			return 1;
+		} 
+		temp = temp.next;
+	}
+	return 0;
 }
 
 /* Returns 1 if deletion successful, 0 otherwise */

@@ -13,8 +13,6 @@
 #include "list.h"
 
 char isIdentifierStart(char str);
-char inList(char * str);
-void addToList(int lineNumber, char * str);
 
 int main(int argc, char * argv[]) {
 	char ch;
@@ -58,6 +56,9 @@ int main(int argc, char * argv[]) {
 			} else {
 				inId = 0;
 				// send tempId to list
+				if(!inList(list, tempId)) {
+					
+				}
 				tempId = "";
 			}
 		}
@@ -78,12 +79,3 @@ char isIdentifierStart(char str) {
 	}
 }
 
-// Returns 1 if str is in linked list else returns 0
-char inList(char * str) {
-	while(1) {
-		if (1) {
-			return 1;
-		}
-	}
-	return 0;
-}

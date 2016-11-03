@@ -1,18 +1,19 @@
+struct ListNodeType {
+	char * identifier;	// string stored in list
+	int lineNum;		// line string occurs on
+	ListNode * prev;	// previous element in list
+	ListNode * next;	// next element in list
+};
+
+typedef struct ListNodeType ListNode;
+
 struct ListType {
 	ListNode * head;	// head of list
 	ListNode * tail;  	// tail of list
 	int size;			// size of list
 };
 
-struct ListNodeType {
-	char * identifier;	// string stored in list
-	int lineNum;		// line string occurs on
-	ListNode * prev;
-	ListNode * next;
-};
-
-typedef struct ListType *List;
-typedef struct ListNodeType *ListNode;
+typedef struct ListType List;
 /* Adds node to list */
 extern List addToList(List * list, ListNode * node);
 /* Adds a line number to existing node */

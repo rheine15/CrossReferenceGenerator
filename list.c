@@ -11,12 +11,13 @@
 #define MAXLEN 32
 
 struct ListNodeType {
-	char identifier[MAXLEN];
-	int lineNum[MAXLEN];
+	char * identifier;	// string stored in list
+	int lineNum[MAXLEN];// lines string occurs on
 };
 
 typedef struct ListNodeType *ListNode;
 
+/* Adds a line number to existing node */
 void addLine(ListNode * node, int line) {
 	int * x;
 	x = node->lineNum;
@@ -26,11 +27,9 @@ void addLine(ListNode * node, int line) {
 	*(node->lineNum+x) = line; 
 }
 
-ListNode createNode(char[] str, int line) {
+/* Creates a new node with a string and line number */
+ListNode createNode(char * str, int line) {
 	listNode x;
 	x->lineNum[0] = line;
-	int c = 0;
-	while(c < strlen(str)) {
-		x->identifier[c] = str[c];
-	}
+	strcpy(x->identifier, str);
 }

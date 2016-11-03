@@ -10,15 +10,6 @@
 
 #define MAXLEN 50
 
-struct QueueNodeType {
-	char isHead;		// bool to determine if at queue head
-	char * identifier;	// string stored in node
-	int lineNum;		// line num on which string occurs
-	QueueNode next;		// next node in queue
-};
-
-typedef struct QueueNodeType *QueueNode;
-
 /* Initializes queue with an identifier and line number */
 QueueNode initQueue(char * identifier, int lineNum) {
 	QueueNode node;
@@ -31,14 +22,15 @@ QueueNode initQueue(char * identifier, int lineNum) {
 /* Adds the given identifier and line num to the tail of the queue */
 void addQueueNode(QueueNode *head, char * identifier, int lineNum) {
 	QueueNode node;
+	QueueNode * temp = head;
 	node->isHead = 0;
 	node->identifier = (char *)malloc(sizeof(char)*(strlen(identifier)));
 	strcpy(node->identifier, identifier);
 	node->lineNum = lineNum;
-	while(head->next != NULL) {
-		*head = head->next;
+	while(temp->next != NULL) {
+		*temp = temp->next;
 	}
-	head->next = node;
+	temp->next = node;
 }
 
 /* Prints the contents of the queue */

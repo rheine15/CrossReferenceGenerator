@@ -21,6 +21,8 @@ int main(int argc, char * argv[]) {
 	char prev;
 	char * tempId;
 	int currentLine = 0;
+	List list;
+	QueueNode queue;
 
 	//bools
 	int inId = 0;

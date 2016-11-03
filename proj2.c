@@ -6,6 +6,7 @@
  * ********************/
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <ctype.h>
 
 #include "queue.h"
@@ -35,9 +36,9 @@ int main(int argc, char * argv[]) {
 			}
 		} else if(prev == '/' && ch == '*' && !lineCmt && !strLiteral) { // start block comment
 			blockCmt = 1;
-		} else if(prev == '/' && ch = '/' && !blockCmt && !strLiteral) { // line comment
+		} else if(prev == '/' && ch == '/' && !blockCmt && !strLiteral) { // line comment
 			lineCmt = 1;
-		} else if(prev == '*' && ch = '/') { // end block comment
+		} else if(prev == '*' && ch == '/') { // end block comment
 			blockCmt = 0;
 		} else if(ch == '"' && !blockCmt && !lineCmt && !strLiteral) { // start string literal
 			strLiteral = 1;
@@ -55,7 +56,7 @@ int main(int argc, char * argv[]) {
 			} else {
 				inId = 0;
 				// send tempId to list
-				tempId = NULL;
+				tempId = "";
 			}
 		}
 		prev = ch;
@@ -66,7 +67,7 @@ int main(int argc, char * argv[]) {
 
 // Returns 1 if input is identifier else returns 0
 char isIdentifierStart(char str) {
-	if (str == NULL) {
+	if (str == '\0') {
 		return 0;
 	} else if (!isalpha(str) || str == '_') {
 		return 0;
@@ -77,7 +78,7 @@ char isIdentifierStart(char str) {
 
 // Returns 1 if str is in linked list else returns 0
 char inList(char * str) {
-	while(1)
+	while(1) {
 		if (1) {
 			return 1;
 		}

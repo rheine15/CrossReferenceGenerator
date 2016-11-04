@@ -81,37 +81,3 @@ int removeFromList(List * list, ListNode * node) {
 	return 1;
 }
 
-/* Converts list to queue */
-QueueNode convertToQueue(List * list) {
-	int min = list->head->lineNum;
-	ListNode *temp = list->head;
-	int error = 0;
-	QueueNode * queueHead;
-	while(list->size > 0) {
-		while(temp != NULL) {
-			if (temp->lineNum < min) {
-				min = temp->lineNum;
-			}
-			temp = temp->next;
-		} 
-		temp = list->head;
-		while(temp->lineNum != min) {
-			if(temp == NULL) {
-				error = 1;
-				break;
-			}
-			temp = temp->next;
-		}
-		if(error){
-			printf("Loop Error\n");
-			return;
-		} else {
-			if(queueHead->identifier == '\0') {
-				initQueue(temp->identifier, temp->lineNum);
-			} else {
-				addQueueNode(queueHead, temp->identifier, temp->lineNum);
-			}
-		}
-	}
-	return *queueHead;
-}

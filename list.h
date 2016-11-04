@@ -26,5 +26,4 @@ extern void * getNode(List * list, char * identifier);
 extern int inList(List * list, char * identifier);
 /* Returns 1 if deletion successful, 0 otherwise */
 extern int removeFromList(List * list, ListNode * node);
-/* Converts list to queue */
-extern QueueNode convertToQueue(List * list);
+

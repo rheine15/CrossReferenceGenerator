@@ -12,6 +12,8 @@
 #include "queue.h"
 #include "list.h"
 
+#define MAXLEN 50;
+
 char isIdentifierStart(char str);
 
 int main(int argc, char * argv[]) {
@@ -49,23 +51,30 @@ int main(int argc, char * argv[]) {
 			if(isIdentifierStart(ch)) {
 				inId = 1;
 				// put into temp
+				tempId = malloc(sizeof(char) * MAXLEN);
+				*tempId = ch;
+				*tempId+sizeof(char) = '\0';
 			}
 		} else if(!strLiteral && !lineCmt && !blockCmt && inId) {
 			if(ch == '_' || isalnum(ch)) {
 				// add to temp
+				*(tempId + strlen(tempId-1)) = ch;
+				*(tempId + strlen(tempId)) = '\0';
 			} else {
 				inId = 0;
 				// send tempId to list
 				if(!inList(&list, tempId)) {
-					
+					addLine(getNode(&list, tempId), currentLine);
+				} else {
+					addNodeToList(&list, createNode(tempId, currentLine));
 				}
-				tempId = "";
+				free(tempId);
 			}
 		}
 		prev = ch;
 	}
 	// convert list to queue
-	
+	convertToQueue(&list);
 }
 
 // Returns 1 if input is identifier else returns 0

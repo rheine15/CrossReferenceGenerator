@@ -12,9 +12,10 @@
 #include "queue.h"
 #include "list.h"
 
-#define MAXLEN 50;
+#define MAXLEN 50
 
 char isIdentifierStart(char str);
+QueueNode convertToQueue(List * list);
 
 int main(int argc, char * argv[]) {
 	char ch;
@@ -53,7 +54,7 @@ int main(int argc, char * argv[]) {
 				// put into temp
 				tempId = malloc(sizeof(char) * MAXLEN);
 				*tempId = ch;
-				*tempId+sizeof(char) = '\0';
+				*(tempId+sizeof(char)) = '\0';
 			}
 		} else if(!strLiteral && !lineCmt && !blockCmt && inId) {
 			if(ch == '_' || isalnum(ch)) {
@@ -66,7 +67,9 @@ int main(int argc, char * argv[]) {
 				if(!inList(&list, tempId)) {
 					addLine(getNode(&list, tempId), currentLine);
 				} else {
-					addNodeToList(&list, createNode(tempId, currentLine));
+					ListNode * newNode;
+					*newNode = createNode(tempId, currentLine);
+					addNodeToList(&list, &newNode);
 				}
 				free(tempId);
 			}
